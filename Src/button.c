@@ -71,18 +71,18 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
                         return;
                 }
 
-                int request_index = find_request(target_requests, floor);
-                if (request_index != -1) {
+                int request_index = find_request_name(target_requests, floor);
+                if (request_index == -1) {
                     remove_request(target_requests, floor,0);
                 } else {
                     push_requests(target_requests, floor);
                 }
 
-                printf(msg, "Current state - up: [%d,%d,%d], down: [%d,%d,%d], internal: [%d,%d,%d] \r\n",
+                sprintf(msg, "Current state - up: [%d,%d,%d], down: [%d,%d,%d], internal: [%d,%d,%d] \r\n",
                         up_requests[0], up_requests[1], up_requests[2],
                         down_requests[0], down_requests[1], down_requests[2],
                         internal_requests[0], internal_requests[1], internal_requests[2]);
-                //HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
+                HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
 
                 last_press_time[i] = HAL_GetTick();
             }

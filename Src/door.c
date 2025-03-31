@@ -15,7 +15,7 @@ void Servo_Rotate(uint16_t target_ccr, uint16_t speed_delay_ms)
   {
     for (uint16_t i = current_ccr; i <= target_ccr; i++)
     {
-      current_ccr = i;           // CCR1 값 설정
+      TIM5->CCR2 = i;           // CCR1 값 설정
       HAL_Delay(speed_delay_ms); // 속도 조절을 위한 지연
     }
   }
@@ -23,7 +23,7 @@ void Servo_Rotate(uint16_t target_ccr, uint16_t speed_delay_ms)
   {
     for (uint16_t i = current_ccr; i >= target_ccr; i--)
     {
-      current_ccr = i;           // CCR1 값 설정
+      TIM5->CCR2 = i;           // CCR1 값 설정
       HAL_Delay(speed_delay_ms); // 속도 조절을 위한 지연
     }
   }

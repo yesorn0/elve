@@ -48,18 +48,3 @@ int read_rfid_card(void)
     return check_card_id(str);
 }
 
-void read_check()
-{
-	int flag;
-	flag = read_rfid_card();
-
-	if (flag == 1)
-	{
-		Servo_Rotate(40, 20); // 속도 조절을 위한 딜레이 10ms
-		HAL_Delay(5000);      // 5초 대기
-
-				 // 90도 (CCR1 = 80)로 천천히 이동
-		Servo_Rotate(90, 20); // 속도 조절을 위한 딜레이 10ms
-		HAL_Delay(5000);
-	}
-}

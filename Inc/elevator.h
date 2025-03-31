@@ -13,6 +13,8 @@
 #include "photo.h"
 #include "button.h"
 #include "door.h"
+#include "tim.h"
+#include "buzzer.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -52,13 +54,21 @@ uint8_t * get_internal_requests(void);
 uint8_t * get_up_requests(void);
 uint8_t * get_down_requests(void);
 void elevator_process(void);
+
 void set_currentstate(void);
 void door_open_close(void);
-void request_process(void);
-void push_requests(uint8_t *requests, uint8_t operator);
-//void pop_requests(uint8_t *requests);
+void request_process_STOPPED(void);
+void request_process_MOVING(void);
+
+uint8_t choose_closest_floor(uint8_t * requests);
+
+uint8_t find_request_above(uint8_t *requests, uint8_t floor);
+uint8_t find_request_below(uint8_t *requests, uint8_t floor);
+uint8_t find_request_index(uint8_t *requests, uint8_t floor);  // 추가
+uint8_t find_request_name(uint8_t *requests, uint8_t floor);  // 추가
 uint8_t check_request(uint8_t *requests);
-int find_request(uint8_t *requests, uint8_t floor);  // 추가
+
+void push_requests(uint8_t *requests, uint8_t operator);
 void remove_request(uint8_t *requests, uint8_t floor, uint8_t is_processed);  // 통합, is_processed 추가
 
 #endif /* INC_ELEVATOR_H_ */

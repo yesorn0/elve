@@ -34,6 +34,10 @@
 #include "i2c_lcd.h"
 #include "ultrasonic.h"
 #include "fnd.h"
+#include "RC522.h"
+#include "string.h"
+#include "RFID.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,6 +97,11 @@ volatile uint8_t rxdata3;
 uint8_t presence;
 uint8_t temp;
 uint8_t can_operate_flag = 1;       // 엘리베이터 작동 가능 여부 플래그 (1: 가능, 0: 불가능)
+uint8_t status;
+uint8_t str[16];
+uint8_t sNum[5];
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -148,6 +157,7 @@ int main(void)
   MX_SPI3_Init();
   MX_TIM5_Init();
   MX_ADC1_Init();
+  MX_TIM9_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_Base_Start(&htim11);
@@ -164,18 +174,22 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  temp_process();//데이터를 읽어와서 저장을 할거란 말이야/
-	  if(can_operate_flag)
-	  {
-		  elevator_process();
-	  }
-      HAL_Delay(4000);
+
+
+
+	 if(can_operate_flag)
+	 {
+		 elevator_process();
+	 }
+	 HAL_Delay(2000);
+
+
 //	  rxdata1=Get_3cm_photo_data();
 //	  rxdata2=Get_9cm_photo_data();
 //	  rxdata3=Get_15cm_photo_data();
 //
 //	  HAL_Delay(500);
-//    /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
